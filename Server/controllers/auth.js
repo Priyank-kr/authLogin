@@ -1,15 +1,18 @@
 import bcrypt from 'bcryptjs';
-import { JsonWebTokenError } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import userModel from '../models/userModel.js';
+
 
 export const register = async (req, res) =>{
     const {name, email, password} = req.body;
+    const { JsonWebTokenError } = jwt;
 
     if(!name || !email || !password){
         return res.json({success: false, message: 'missing Details'})
     }
 
     try{
+
         const existinguser = await userModel.findOne({email});
 
         if(existinguser){
@@ -19,7 +22,7 @@ export const register = async (req, res) =>{
         const user = new userModel({name, email, password: hashedPassword});
         await user.save();
 
-        const token = Jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '7d'});
+        const token = jwt.sign({id: user._id}, process.env.jwt_SECRET, {expiresIn: '7d'});
 
         res.cookie('token', token, {
             httpOnly : true,
@@ -28,7 +31,7 @@ export const register = async (req, res) =>{
             maxAge: 7 * 24 * 60 * 60 * 1000
         })
         
-        return res.json({success: true});
+        return res.json({success: true, message: "user registered successfully"});
 
     }catch(error){
         res.json({success: false, message: error.message})
@@ -55,7 +58,7 @@ export const login = async (req, res) =>{
             return res.json({success: false, message: "Invalid Password"})
         }
 
-        const token = Jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '7d'});
+        const token = jwt.sign({id: user._id}, process.env.jwt_SECRET, {expiresIn: '7d'});
 
         res.cookie('token', token, {
             httpOnly : true,
@@ -64,7 +67,7 @@ export const login = async (req, res) =>{
             maxAge: 7 * 24 * 60 * 60 * 1000
         });
 
-        return res.json({success: true});
+        return res.json({success: true, message: "login successfull"});
     
 
     }catch(error){
