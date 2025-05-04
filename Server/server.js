@@ -17,7 +17,7 @@ app.use(cors({credentials: true}));
 app.get('/' , (req, res) => {res.json("Hello API is running")});
 
 app.use('/', authRouter);
-app.use('/data', userRouter)
+app.use('/', userRouter)
 
 app.listen(PORT, ()=>{
     console.log(`server is running on PORT: ${PORT}`)
