@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
+    const navigate = useNavigate()
     const [state, setState] = useState('Sign Up')
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    
 
     const handleFormSubmit = (e) =>{
         e.preventDefault();
@@ -13,7 +17,7 @@ function Login() {
 
   return (
     <div className='flex items-center justify-center min-h-screen px-6 sm:px-0 bg-gradient-to-br from-blue-200 to-purple-400'>
-      <img src={assets.logo} alt='logo' className='absolute left-5 sm:left-20 top-5 w-28 sm:w-32 cursor-pointer' />
+      <img onClick={() => navigate('/')} src={assets.logo} alt='logo' className='absolute left-5 sm:left-20 top-5 w-28 sm:w-32 cursor-pointer' />
       <div className='bg-slate-800 p-10 rounded-lg shadow-lg w-full sm:w-96 text-sm text-indigo-300'>
         <h2 className='text-3xl font-semibold text-white text-center mb-3'>{state === 'Sign Up' ? 'Create account' : 'Login'}</h2>
         <p className='text-center text-sm mb-6'>{state === 'Sign Up' ? 'Create your account' : 'Login to your account!'}</p>
