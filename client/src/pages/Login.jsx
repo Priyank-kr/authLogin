@@ -1,18 +1,54 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { assets } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import { AppContent } from '../context/AppContext';
+import {toast} from 'react-toastify'
 
 function Login() {
     const navigate = useNavigate()
-    const [state, setState] = useState('Sign Up')
+
+    const {backendUrl, setIsLoggedIn, getUserData} = useContext(AppContent)
+    const [state, setState] = useState('Login')
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     
 
-    const handleFormSubmit = (e) =>{
-        e.preventDefault();
+    const handleFormSubmit = async (e) =>{
+
+        
+        try{
+            e.preventDefault();
+            axios.defaults.withCredentials = true
+
+            if(state === 'Sign Up'){
+                const {data} = await axios.post(backendUrl + '/register', {name, email, password})
+                if(data.success){
+                    // console.log(data)
+                    setIsLoggedIn(true);
+                    getUserData()
+                    navigate('/')
+                }else{
+                    toast.error(data.message)
+                }
+                
+              }else{
+                const {data} = await axios.post(backendUrl + '/login', {email, password})
+                if(data.success){                    
+                    setIsLoggedIn(true);
+                    getUserData()
+                    navigate('/')
+                }else{
+                    toast.error(data.message)
+                }
+              }
+        }catch(error){
+            toast.error(error.message)
+        }
+       
+    
     }
 
   return (
@@ -41,9 +77,9 @@ function Login() {
             </div>
 
         {state === 'Login' &&
-            <p className='mb-4 text-sm  text-indigo-300 hover:text-indigo-400 transition-all duration-200 cursor-pointer'>Forgot password?</p>
+            <p onClick={() =>navigate('/reset-password')} className='mb-4 text-sm  text-indigo-300 hover:text-indigo-400 transition-all duration-200 cursor-pointer'>Forgot password?</p>
         }
-            <button className='w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900'>{state}</button>
+            <button className='w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900 cursor-pointer'>{state}</button>
         </form>
 
     {state === 'Sign Up' ? (

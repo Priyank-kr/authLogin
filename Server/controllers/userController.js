@@ -2,7 +2,7 @@ import userModel from "../models/userModel.js";
 
 export const getUserData = async (req, res) => {
     try {
-        const { userId } = req.body;
+        const userId = req.userId;
 
         if (!userId) {
             return res.status(400).json({ success: false, message: "userId is required" });
@@ -25,6 +25,6 @@ export const getUserData = async (req, res) => {
             },
         });
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        res.status(500).json({ success: false, message: error.message});
     }
 };
