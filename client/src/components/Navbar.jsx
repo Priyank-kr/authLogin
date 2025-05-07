@@ -55,7 +55,7 @@ function Navbar() {
         className="w-32 md:w-28 cursor-pointer"
       />
       {userData ? (<div className="w-10 h-10 rounded-full bg-black text-white text-md text-center flex justify-center items-center  relative group">{userData.name[0].toUpperCase()}
-        <div className="absolute py-2 hidden group-hover:block top-8 -right-4 z-10">
+        <div className="absolute py-2 hidden group-hover:block -top-2 left-10 z-10">
           <ul className="list-none m-0 w-30 text-md">
             {!userData.isAccountVerified &&  <li onClick={verifyEmail} className="py-3 bg-gradient-to-r from-indigo-400 to-indigo-800 text-white cursor-pointer">Verify Email</li>}
            
