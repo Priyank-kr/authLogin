@@ -27,10 +27,11 @@ export const AppContextProvider = (props) =>{
     const getUserData = async () =>{
         try{
             const {data} = await axios.get(backendUrl + '/users')
-            console.log(data)
-            data.success ? setUserData(data.userData) : toast.error(data.error)
+            data.success ? setUserData(data.userData) : toast.error(data.message)
+            
         }catch(error){
             toast.error(error.message)
+            console.log("kaise")
         }
     }
 
