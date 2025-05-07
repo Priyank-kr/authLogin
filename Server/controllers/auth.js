@@ -6,8 +6,8 @@ import { EMAIL_VERIFY_TEMPLATE, PASSWORD_RESET_TEMPLATE, REGISTERATION_TEMPLATE 
 
 
 export const register = async (req, res) =>{
-    axios.defaults.withCredentials = true;
-    
+    // axios.defaults.withCredentials = true;
+
     const {name, email, password} = req.body;
     const { JsonWebTokenError } = jwt;
 

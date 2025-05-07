@@ -18,12 +18,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({origin: allowedOrigins, credentials: true}));
 
-app.disable('etag');
 
-app.use((req, res, next) => {
-    res.set('Cache-Control', 'no-store');
-    next();
-  });
+// app.use((req, res, next) => {
+//     res.set('Cache-Control', 'no-store');
+//     next();
+//   });
 
 app.get('/' , (req, res) => {res.json("Hello API is running")});
 
