@@ -7,5 +7,16 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss()
-  ]
+  ],
+  server: {
+    host: 'localhost',
+    port: 5173,
+    strictPort: true,
+    cors: true,
+    hmr: {
+      protocol: 'ws',
+      host: 'localhost',
+      port: 5173,
+    }
+  }
 })
