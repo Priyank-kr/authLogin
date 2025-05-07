@@ -56,10 +56,10 @@ function Navbar() {
       />
       {userData ? (<div className="w-10 h-10 rounded-full bg-black text-white text-md text-center flex justify-center items-center  relative group">{userData.name[0].toUpperCase()}
         <div className="absolute py-2 hidden group-hover:block top-8 -right-4 z-10">
-          <ul className="list-none m-0 w-36 text-md">
-            {!userData.isAccountVerified &&  <li onClick={verifyEmail} className="py-3 bg-blue-500 text-white hover:bg-blue-600 cursor-pointer">Verify Email</li>}
+          <ul className="list-none m-0 w-30 text-md">
+            {!userData.isAccountVerified &&  <li onClick={verifyEmail} className="py-3 bg-gradient-to-r from-indigo-400 to-indigo-800 text-white cursor-pointer">Verify Email</li>}
            
-            <li onClick={logout} className="py-3  bg-blue-500 text-white hover:bg-blue-600 cursor-pointer pr-10">Logout</li>
+            <li onClick={logout} className="py-3  bg-gradient-to-r from-indigo-400 to-indigo-800 text-white cursor-pointer pr-10">Logout</li>
           </ul>
         </div>
       </div>) :
